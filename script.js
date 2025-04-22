@@ -292,31 +292,48 @@ function handleFormSubmit(e) {
         return;
     }
     
-    // Show loading state
+    sendEmail(e);
+}
+
+/**
+ * Send email using EmailJS
+ */
+function sendEmail(e) {
+    e.preventDefault();
+    
+    const form = e.target;
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.textContent;
+    
+    // Show loading state
     submitBtn.disabled = true;
     submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
     
-    // In a real implementation, you would send the form data to a server
-    // For this demo, we'll simulate a successful submission after a delay
-    setTimeout(() => {
-        // Show success message
-        showFormMessage(form, 'Your message has been sent successfully! We\'ll get back to you soon.', 'success');
-        
-        // Reset the form
-        form.reset();
-        
-        // Reset button
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-        
-        // Reset character counter if it exists
-        const charCounter = form.querySelector('.char-counter');
-        if (charCounter) {
-            charCounter.innerHTML = `<span>0</span>/1000 characters`;
-        }
-    }, 1500);
+    const templateParams = {
+        from_name: form.name.value,
+        from_email: form.email.value,
+        phone: form.phone.value || 'Not provided',
+        service: form.service.value,
+        message: form.message.value
+    };
+
+    emailjs.send('service_mm7spaq', 'template_ktub4p9', templateParams)
+        .then(function(response) {
+            showFormMessage(form, 'Your message has been sent successfully! We\'ll get back to you soon.', 'success');
+            form.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+            const charCounter = form.querySelector('.char-counter');
+            if (charCounter) {
+                charCounter.innerHTML = `<span>0</span>/1000 characters`;
+            }
+        }, function(error) {
+            showFormMessage(form, 'Sorry, there was an error sending your message. Please try again or contact us directly.', 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        });
+    
+    return false;
 }
 
 /**

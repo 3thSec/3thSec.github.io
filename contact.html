@@ -7,6 +7,12 @@
     <title>Contact | 3thSec</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("8ZInPcSk6evUHepjI");
+        })();
+    </script>
 </head>
 <body>
     <div class="navbar">
@@ -17,14 +23,6 @@
             <a href="about.html">About</a>
         </div>
     </div>
-
-    <!-- Contact Hero Section -->
-    <section class="hero contact-hero">
-        <div class="hero-content">
-            <h1>Get Professional Tech Support Today</h1>
-            <p class="hero-subtitle">We're here to solve your technology problems</p>
-        </div>
-    </section>
 
     <div class="container">
         <!-- Contact Options Section -->
@@ -78,7 +76,7 @@
             </div>
             
             <div class="contact-form-container">
-                <form class="contact-form" id="contact-form">
+                <form class="contact-form" id="contact-form" onsubmit="return sendEmail(event)">
                     <div class="form-group">
                         <label for="name">Full Name <span class="required">*</span></label>
                         <input type="text" id="name" name="name" required placeholder="Enter your full name">
