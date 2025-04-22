@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact 3thSec for professional IT support services. Get help with PC issues, virus removal, network setup, and more.">
+    <title>Contact | 3thSec</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="brand">3thSec</a>
+        <div class="nav-links">
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+            <a href="about.html">About</a>
+        </div>
+    </div>
+
+    <!-- Contact Hero Section -->
+    <section class="hero contact-hero">
+        <div class="hero-content">
+            <h1>Get Professional Tech Support Today</h1>
+            <p class="hero-subtitle">We're here to solve your technology problems</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Contact Options Section -->
+        <section class="contact-options">
+            <div class="section-header">
+                <h2>Contact Information</h2>
+                <p>Multiple ways to reach our support team</p>
+            </div>
+            
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>Send us a detailed description of your issue</p>
+                    <a href="mailto:3thSec@example.com" class="contact-link">3thSec@example.com</a>
+                    <p class="response-time"><i class="fas fa-clock"></i> Response within 24 hours</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>Get immediate assistance for urgent issues</p>
+                    <a href="tel:1234567890" class="contact-link">(123) 456-7890</a>
+                    <p class="response-time"><i class="fas fa-clock"></i> Available during business hours</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Business Hours</h3>
+                    <p>When you can reach us directly</p>
+                    <div class="business-hours">
+                        <p>Monday - Friday: 9am - 6pm</p>
+                        <p>Saturday: 10am - 4pm</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form-section">
+            <div class="section-header">
+                <h2>Send Us a Message</h2>
+                <p>Fill out the form below and we'll get back to you as soon as possible</p>
+            </div>
+            
+            <div class="contact-form-container">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        <small class="form-hint">Please enter your first and last name</small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                            <small class="form-hint">We'll never share your email with others</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                            <small class="form-hint">Optional, but helpful for urgent matters</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Service Needed <span class="required">*</span></label>
+                        <select id="service" name="service" required>
+                            <option value="" disabled selected>Select a service</option>
+                            <option value="pc-optimization">PC Setup & Optimization</option>
+                            <option value="virus-removal">Virus & Malware Removal</option>
+                            <option value="data-backup">Data Transfer & Backup</option>
+                            <option value="network-setup">Wi-Fi & Network Setup</option>
+                            <option value="other">Other (Please specify)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message <span class="required">*</span></label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Describe your issue or question in detail"></textarea>
+                        <small class="form-hint">The more details you provide, the better we can help you</small>
+                    </div>
+                    
+                    <div class="form-group consent-checkbox">
+                        <input type="checkbox" id="privacy-consent" name="privacy-consent" required>
+                        <label for="privacy-consent">I agree to the <a href="#">privacy policy</a> and consent to being contacted about my inquiry.</label>
+                    </div>
+                    
+                    <div class="form-submit">
+                        <button type="submit" class="cta-button">Send Message</button>
+                        <p class="response-notice">We typically respond within 24 business hours</p>
+                    </div>
+                </form>
+                
+                <div class="contact-sidebar">
+                    <div class="contact-info-box">
+                        <h3>Why Contact Us?</h3>
+                        <ul class="contact-benefits">
+                            <li><i class="fas fa-check-circle"></i> Expert technical assistance</li>
+                            <li><i class="fas fa-check-circle"></i> Quick response times</li>
+                            <li><i class="fas fa-check-circle"></i> Personalized solutions</li>
+                            <li><i class="fas fa-check-circle"></i> Clear pricing with no surprises</li>
+                            <li><i class="fas fa-check-circle"></i> Remote and on-site options</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="contact-privacy">
+                        <h4><i class="fas fa-shield-alt"></i> Privacy Assured</h4>
+                        <p>Your information is kept confidential and will only be used to address your specific inquiries. We never share your data with third parties.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Methods Section -->
+        <section class="contact-methods-section">
+            <div class="section-header">
+                <h2>How We Can Help</h2>
+                <p>Different ways we provide tech support</p>
+            </div>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-laptop-house"></i>
+                    </div>
+                    <div class="method-content">
+                        <h3>Remote Support</h3>
+                        <p>For many issues, we can connect to your computer remotely to diagnose and fix problems without requiring an in-person visit. This is often the fastest and most convenient solution.</p>
+                        <p class="method-note"><i class="fas fa-info-circle"></i> Requires internet connection and permission to access your device</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="method-content">
+                        <h3>On-Site Support</h3>
+                        <p>For more complex issues or hardware problems, we can schedule an on-site visit to your home or business to resolve the issue in person.</p>
+                        <p class="method-note"><i class="fas fa-info-circle"></i> Available within local service area</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="method-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="method-content">
+                        <h3>Consultation</h3>
+                        <p>Not sure what you need? Schedule a consultation call to discuss your technology needs and get expert recommendations tailored to your situation.</p>
+                        <p class="method-note"><i class="fas fa-info-circle"></i> Free 15-minute initial consultation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to common inquiries</p>
+            </div>
+            
+            <div class="faqs">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How quickly can you help with my computer issue?</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For urgent issues, we strive to provide same-day remote support when contacted during business hours. For on-site visits, we typically schedule appointments within 24-48 hours depending on our current workload and your location.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What information should I have ready when contacting support?</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>It's helpful to provide: your device type and operating system, a detailed description of the issue including any error messages, when the problem started, and any troubleshooting steps you've already tried.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer service packages or just one-time help?</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer both one-time service options and monthly maintenance packages for ongoing support. Our maintenance plans are ideal for small businesses or individuals who want regular system checks and priority support.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is there a minimum charge for services?</h3>
+                        <div class="faq-toggle"><i class="fas fa-plus"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we have a one-hour minimum for both remote and on-site support. After the first hour, we bill in 30-minute increments. We'll always provide a clear estimate before beginning any work.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Response Time Expectations -->
+        <section class="response-expectations">
+            <div class="expectation-header">
+                <h3><i class="fas fa-clock"></i> Our Response Time Commitment</h3>
+            </div>
+            <div class="expectation-content">
+                <p>At 3thSec, we understand that technology issues can be frustrating and time-sensitive. Here's what you can expect when you reach out to us:</p>
+                <ul>
+                    <li><strong>Email inquiries:</strong> Response within 24 business hours</li>
+                    <li><strong>Phone calls during business hours:</strong> Immediate response or callback within 2 hours</li>
+                    <li><strong>Urgent issues:</strong> Priority handling for critical problems affecting business operations</li>
+                    <li><strong>After-hours messages:</strong> Response by noon the next business day</li>
+                </ul>
+                <p>We prioritize clear communication throughout the process and will keep you updated on the status of your support request.</p>
+            </div>
+        </section>
+    </div>
+
+    <div class="footer">
