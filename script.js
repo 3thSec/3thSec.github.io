@@ -310,14 +310,15 @@ function sendEmail(e) {
     submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
     
     const templateParams = {
+        to_email: 'contact3thsec@proton.me',
         from_name: form.name.value,
         from_email: form.email.value,
         phone: form.phone.value || 'Not provided',
         service: form.service.value,
-        message: form.message.value
+        message: form.message.value,
     };
 
-    emailjs.send('service_mm7spaq', 'template_ktub4p9', templateParams)
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
         .then(function(response) {
             showFormMessage(form, 'Your message has been sent successfully! We\'ll get back to you soon.', 'success');
             form.reset();
