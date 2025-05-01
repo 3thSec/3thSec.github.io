@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initContactForm();
     initNavbarScroll();
+    initFileUpload();
+    initAnimations();
 });
 
 /**
@@ -370,5 +372,134 @@ function showFormMessage(form, message, type) {
     
     // Scroll to message
     messageEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/**
+ * File Upload Handling
+ * Manages file uploads including drag and drop
+ */
+function initFileUpload() {
+    const fileUpload = document.getElementById('fileUpload');
+    const fileInput = document.getElementById('fileInput');
+    const filePreview = document.getElementById('filePreview');
+    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    
+    if (!fileUpload) return;
+
+    // Handle drag and drop events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        fileUpload.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        fileUpload.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        fileUpload.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+        fileUpload.classList.add('highlight');
+    }
+
+    function unhighlight() {
+        fileUpload.classList.remove('highlight');
+    }
+
+    // Handle file selection
+    fileInput.addEventListener('change', handleFiles);
+    fileUpload.addEventListener('drop', handleDrop);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles({ target: { files: files } });
+    }
+
+    function handleFiles(e) {
+        const files = [...e.target.files];
+        const validFiles = files.filter(file => {
+            const isValid = /^(image\/|video\/)/.test(file.type);
+            const isWithinSize = file.size <= maxFileSize;
+            
+            if (!isValid) {
+                showError('Only image and video files are accepted');
+                return false;
+            }
+            if (!isWithinSize) {
+                showError('File size must be less than 5MB');
+                return false;
+            }
+            return true;
+        });
+
+        if (validFiles.length) {
+            showPreviews(validFiles);
+        }
+    }
+
+    function showPreviews(files) {
+        filePreview.innerHTML = '';
+        filePreview.classList.add('active');
+        
+        files.forEach(file => {
+            const reader = new FileReader();
+            const preview = document.createElement('div');
+            preview.className = 'preview-item';
+            
+            reader.onload = function(e) {
+                const isImage = file.type.startsWith('image/');
+                preview.innerHTML = `
+                    <i class="fas fa-${isImage ? 'image' : 'video'}"></i>
+                    <span>${file.name}</span>
+                    <i class="fas fa-times remove-file"></i>
+                `;
+                
+                preview.querySelector('.remove-file').onclick = function() {
+                    preview.remove();
+                    if (!filePreview.hasChildNodes()) {
+                        filePreview.classList.remove('active');
+                    }
+                };
+            };
+            
+            reader.readAsDataURL(file);
+            filePreview.appendChild(preview);
+        });
+    }
+}
+
+/**
+ * Enhanced Animation System
+ * Handles scroll-based animations and interactive effects
+ */
+function initAnimations() {
+    const animatedElements = document.querySelectorAll('.service-card, .feature, .testimonial, .contact-card');
+    
+    const observerOptions = {
+        root: null,
+        threshold: 0.2,
+        rootMargin: '0px'
+    };
+    
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                // Only observe once
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    animatedElements.forEach(element => {
+        observer.observe(element);
+    });
 }
 
