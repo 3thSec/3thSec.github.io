@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initContactForm();
     initNavbarScroll();
+    initAnimations();
+    initParticleEffect();
+    initTypewriterEffect();
+    initScrollReveal();
+    initInteractiveElements();
+    initMobileNavigation();
 });
 
 /**
@@ -370,5 +376,384 @@ function showFormMessage(form, message, type) {
     
     // Scroll to message
     messageEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/**
+ * Initialize Modern Animations
+ * Add entrance animations for elements on page load
+ */
+function initAnimations() {
+    // Add fade-in animation to hero section
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        hero.style.opacity = '0';
+        hero.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+            hero.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            hero.style.opacity = '1';
+            hero.style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    // Animate navbar on load
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        navbar.style.transform = 'translateY(-100%)';
+        
+        setTimeout(() => {
+            navbar.style.transition = 'transform 0.6s ease';
+            navbar.style.transform = 'translateY(0)';
+        }, 200);
+    }
+}
+
+/**
+ * Initialize Particle Effect for Hero Background
+ * Creates floating particles in the hero section
+ */
+function initParticleEffect() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    // Create particle container
+    const particleContainer = document.createElement('div');
+    particleContainer.className = 'particle-container';
+    particleContainer.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+    `;
+    
+    hero.appendChild(particleContainer);
+    
+    // Create particles
+    for (let i = 0; i < 30; i++) {
+        createParticle(particleContainer);
+    }
+}
+
+/**
+ * Create individual particle
+ */
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    const size = Math.random() * 4 + 2;
+    const startPositionX = Math.random() * 100;
+    const startPositionY = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * 5;
+    
+    particle.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: rgba(59, 130, 246, 0.6);
+        border-radius: 50%;
+        left: ${startPositionX}%;
+        top: ${startPositionY}%;
+        animation: float ${duration}s linear infinite;
+        animation-delay: ${delay}s;
+        box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    `;
+    
+    container.appendChild(particle);
+}
+
+/**
+ * Initialize Typewriter Effect
+ * Animates text typing effect on hero subtitle
+ */
+function initTypewriterEffect() {
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    if (!heroSubtitle) return;
+    
+    const originalText = heroSubtitle.textContent;
+    heroSubtitle.textContent = '';
+    heroSubtitle.style.borderRight = '2px solid var(--accent-primary)';
+    heroSubtitle.style.paddingRight = '5px';
+    
+    let i = 0;
+    const typeWriter = () => {
+        if (i < originalText.length) {
+            heroSubtitle.textContent += originalText.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        } else {
+            // Remove cursor after typing is complete
+            setTimeout(() => {
+                heroSubtitle.style.borderRight = 'none';
+                heroSubtitle.style.paddingRight = '0';
+            }, 1000);
+        }
+    };
+    
+    // Start typing after hero animation
+    setTimeout(typeWriter, 1000);
+}
+
+/**
+ * Initialize Scroll Reveal Animations
+ * Animate elements when they come into view
+ */
+function initScrollReveal() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.service, .feature, .testimonial, .contact-card, .service-card');
+    animateElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(el);
+    });
+}
+
+/**
+ * Initialize Interactive Elements
+ * Add enhanced hover effects and interactions
+ */
+function initInteractiveElements() {
+    // Enhanced button hover effects
+    const buttons = document.querySelectorAll('.cta-button');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.02)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // Enhanced service card interactions
+    const serviceCards = document.querySelectorAll('.service, .feature, .contact-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+            this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.2)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '';
+        });
+    });
+    
+    // Add click ripple effect to buttons
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+    
+    // Add parallax effect to hero section
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+            hero.style.transform = `translateY(${parallax}px)`;
+        });
+    }
+}
+
+/**
+ * Add dynamic CSS for animations
+ */
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(180deg);
+        }
+    }
+    
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    .char-counter {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        text-align: right;
+        margin-top: var(--space-1);
+    }
+    
+    .char-counter span {
+        font-weight: 600;
+        color: var(--accent-primary);
+    }
+    
+    .char-limit-exceeded span {
+        color: var(--accent-error) !important;
+    }
+    
+    .error-message {
+        color: var(--accent-error);
+        font-size: 0.85rem;
+        margin-top: var(--space-1);
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+    }
+    
+    .error-message::before {
+        content: '⚠';
+    }
+    
+    input.error,
+    textarea.error,
+    select.error {
+        border-color: var(--accent-error) !important;
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
+    }
+    
+    .form-message {
+        padding: var(--space-4);
+        border-radius: var(--radius-md);
+        margin-bottom: var(--space-4);
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-weight: 500;
+    }
+    
+    .success-message {
+        background-color: rgba(16, 185, 129, 0.1);
+        border: 1px solid var(--accent-success);
+        color: var(--accent-success);
+    }
+    
+    .error-message {
+        background-color: rgba(239, 68, 68, 0.1);
+        border: 1px solid var(--accent-error);
+        color: var(--accent-error);
+    }
+    
+    .fade-out {
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    /* Enhanced button animations */
+    .cta-button {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Enhanced card animations */
+    .service, .feature, .contact-card, .testimonial {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Smooth scrolling for the entire page */
+    html {
+        scroll-behavior: smooth;
+    }
+`;
+document.head.appendChild(style);
+
+/**
+ * Initialize Mobile Navigation
+ * Handle hamburger menu toggle for mobile devices
+ */
+function initMobileNavigation() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    const navLinksItems = navLinks.querySelectorAll('.nav-link');
+    
+    if (!navToggle || !navLinks) return;
+    
+    // Toggle mobile menu
+    navToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        if (navLinks.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close menu when clicking on a link
+    navLinksItems.forEach(link => {
+        link.addEventListener('click', function() {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
 }
 
