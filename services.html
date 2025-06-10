@@ -10,15 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="navbar">
+    <nav class="navbar" id="navbar">
         <a href="index.html" class="brand">3thSec</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="contact.html">Contact</a>
-            <a href="about.html">About</a>
+        <div class="nav-toggle" id="nav-toggle">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
         </div>
-    </div>
+        <div class="nav-links" id="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="about.html" class="nav-link">About</a>
+        </div>
+    </nav>
 
     <div class="container">
         <!-- Services Overview -->
@@ -51,21 +56,7 @@
                     <span>Network Setup</span>
                 </a>
             </div>
-            
-            <div class="not-sure-section">
-                <h3>Not Sure What You Need?</h3>
-                <p>Every technical issue is unique, and sometimes it's hard to know exactly what service you need. Don't worry! Just send us a message describing your problem, and we'll help figure out the best solution.</p>
-                <a href="contact.html#contact-form" class="cta-button">Describe Your Issue</a>
-            </div>
         </section>
-
-        <!-- Price Notice -->
-        <div class="price-notice">
-            <div class="price-notice-content">
-                <i class="fas fa-info-circle"></i>
-                <p><strong>Note about pricing:</strong> All prices shown are estimates and starting points. Since every situation is unique, final pricing may vary based on complexity, time required, and specific requirements. We're always happy to discuss and find a solution that works for your budget.</p>
-            </div>
-        </div>
 
         <!-- Detailed Service Cards -->
         <section id="pc-optimization" class="detailed-service">
@@ -104,23 +95,9 @@
                     <div class="service-details">
                         <div class="service-pricing">
                             <h3>Pricing</h3>
-                            <div class="price-options">
-                                <div class="price-option">
-                                    <h4>Basic Tune-Up</h4>
-                                    <p class="price">$35</p>
-                                    <p class="price-description">Essential optimization for improved performance</p>
-                                </div>
-                                <div class="price-option recommended">
-                                    <div class="recommended-badge">Recommended</div>
-                                    <h4>Complete Optimization</h4>
-                                    <p class="price">$55</p>
-                                    <p class="price-description">Comprehensive performance enhancement</p>
-                                </div>
-                                <div class="price-option">
-                                    <h4>Performance Package</h4>
-                                    <p class="price">$85</p>
-                                    <p class="price-description">Advanced optimization with hardware assessment</p>
-                                </div>
+                            <div class="pricing-simple featured">
+                                <div class="price">$35</div>
+                                <div class="price-note">We work with you on pricing and will always find a solution that fits your budget</div>
                             </div>
                         </div>
                         
@@ -173,23 +150,9 @@
                     <div class="service-details">
                         <div class="service-pricing">
                             <h3>Pricing</h3>
-                            <div class="price-options">
-                                <div class="price-option">
-                                    <h4>Basic Cleanup</h4>
-                                    <p class="price">$45</p>
-                                    <p class="price-description">Virus removal and basic protection</p>
-                                </div>
-                                <div class="price-option recommended">
-                                    <div class="recommended-badge">Recommended</div>
-                                    <h4>Complete Security</h4>
-                                    <p class="price">$75</p>
-                                    <p class="price-description">Advanced removal and security implementation</p>
-                                </div>
-                                <div class="price-option">
-                                    <h4>Business Solution</h4>
-                                    <p class="price">Contact for pricing</p>
-                                    <p class="price-description">For multiple devices or advanced threats</p>
-                                </div>
+                            <div class="pricing-simple featured">
+                                <div class="price">$45</div>
+                                <div class="price-note">We work with you on pricing and will always find a solution that fits your budget</div>
                             </div>
                         </div>
                         
@@ -242,23 +205,9 @@
                     <div class="service-details">
                         <div class="service-pricing">
                             <h3>Pricing</h3>
-                            <div class="price-options">
-                                <div class="price-option">
-                                    <h4>Basic Transfer</h4>
-                                    <p class="price">$40</p>
-                                    <p class="price-description">Simple data transfer between devices</p>
-                                </div>
-                                <div class="price-option recommended">
-                                    <div class="recommended-badge">Recommended</div>
-                                    <h4>Backup Solution</h4>
-                                    <p class="price">$65</p>
-                                    <p class="price-description">Complete backup setup and implementation</p>
-                                </div>
-                                <div class="price-option">
-                                    <h4>Data Recovery</h4>
-                                    <p class="price">From $85</p>
-                                    <p class="price-description">Recovery from damaged or corrupted storage devices</p>
-                                </div>
+                            <div class="pricing-simple featured">
+                                <div class="price">$40</div>
+                                <div class="price-note">We work with you on pricing and will always find a solution that fits your budget</div>
                             </div>
                         </div>
                         
@@ -311,23 +260,9 @@
                     <div class="service-details">
                         <div class="service-pricing">
                             <h3>Pricing</h3>
-                            <div class="price-options">
-                                <div class="price-option">
-                                    <h4>Basic Setup</h4>
-                                    <p class="price">$45</p>
-                                    <p class="price-description">Simple router setup and configuration</p>
-                                </div>
-                                <div class="price-option recommended">
-                                    <div class="recommended-badge">Recommended</div>
-                                    <h4>Complete Network</h4>
-                                    <p class="price">$75</p>
-                                    <p class="price-description">Full network optimization and security</p>
-                                </div>
-                                <div class="price-option">
-                                    <h4>Business Setup</h4>
-                                    <p class="price">From $120</p>
-                                    <p class="price-description">Advanced setup for business environments</p>
-                                </div>
+                            <div class="pricing-simple featured">
+                                <div class="price">$45</div>
+                                <div class="price-note">We work with you on pricing and will always find a solution that fits your budget</div>
                             </div>
                         </div>
                         
@@ -348,5 +283,8 @@
     <div class="footer">
         <!-- Footer content here -->
     </div>
+    
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
