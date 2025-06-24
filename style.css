@@ -420,7 +420,7 @@ img {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #0a0e1a 0%, #1f2937 50%, #111827 100%);
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a0f2e 25%, #1f2937 50%, #2d1b69 75%, #111827 100%);
     padding: var(--space-16) 0 var(--space-12);
     position: relative;
     overflow: hidden;
@@ -445,7 +445,7 @@ img {
     text-align: center;
     padding: var(--spacing-xl) var(--spacing-lg);
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
 .hero h1 {
@@ -2020,7 +2020,7 @@ select.error {
     }
 }
 
-/* Particle animation */
+/* Simple, natural particle animations */
 @keyframes float {
     0%, 100% {
         transform: translateY(0) rotate(0deg);

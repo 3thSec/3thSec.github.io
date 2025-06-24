@@ -427,41 +427,241 @@ function initParticleEffect() {
         height: 100%;
         pointer-events: none;
         overflow: hidden;
-        z-index: 0;
+        z-index: 2;
     `;
     
     hero.appendChild(particleContainer);
     
-    // Create particles
-    for (let i = 0; i < 30; i++) {
+    // Create natural floating particles
+    for (let i = 0; i < 60; i++) {
         createParticle(particleContainer);
+    }
+    
+    // Add some larger, slower moving particles for depth
+    for (let i = 0; i < 20; i++) {
+        createLargeParticle(particleContainer);
+    }
+    
+    // Add some micro particles for extra ambiance
+    for (let i = 0; i < 30; i++) {
+        createMicroParticle(particleContainer);
     }
 }
 
 /**
- * Create individual particle
+ * Create individual particle with enhanced colors and natural movement
  */
 function createParticle(container) {
     const particle = document.createElement('div');
     particle.className = 'particle';
     
-    const size = Math.random() * 4 + 2;
+    // Enhanced color palette with purple tones
+    const colors = [
+        { bg: 'rgba(139, 92, 246, 0.6)', shadow: 'rgba(139, 92, 246, 0.3)' }, // Purple
+        { bg: 'rgba(59, 130, 246, 0.5)', shadow: 'rgba(59, 130, 246, 0.2)' }, // Blue
+        { bg: 'rgba(168, 85, 247, 0.5)', shadow: 'rgba(168, 85, 247, 0.2)' }, // Violet
+        { bg: 'rgba(236, 72, 153, 0.4)', shadow: 'rgba(236, 72, 153, 0.2)' }, // Pink
+        { bg: 'rgba(255, 255, 255, 0.7)', shadow: 'rgba(255, 255, 255, 0.3)' }, // White
+        { bg: 'rgba(196, 181, 253, 0.5)', shadow: 'rgba(196, 181, 253, 0.2)' }  // Light purple
+    ];
+    
+    const colorChoice = colors[Math.floor(Math.random() * colors.length)];
+    const size = Math.random() * 2.5 + 1;
     const startPositionX = Math.random() * 100;
     const startPositionY = Math.random() * 100;
-    const duration = Math.random() * 20 + 10;
-    const delay = Math.random() * 5;
+    
+    // Create unique random movement path for each particle
+    const moveX = (Math.random() - 0.5) * 100; // Increased horizontal movement
+    const moveY = (Math.random() - 0.5) * 80; // Increased vertical movement
+    const duration = Math.random() * 40 + 30; // Very slow movement (30-70 seconds)
+    const delay = Math.random() * 10;
+    
+    // Create unique keyframes for this particle
+    const animationName = `naturalFloat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    const keyframes = `
+        @keyframes ${animationName} {
+            0% {
+                transform: translate(0px, 0px);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translate(${moveX * 0.3}px, ${moveY * 0.2}px);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translate(${moveX * 0.7}px, ${moveY * 0.8}px);
+                opacity: 0.9;
+            }
+            75% {
+                transform: translate(${moveX * 0.4}px, ${moveY * 0.6}px);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(0px, 0px);
+                opacity: 0.4;
+            }
+        }
+    `;
+    
+    // Add the keyframes to the document
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = keyframes;
+    document.head.appendChild(styleSheet);
     
     particle.style.cssText = `
         position: absolute;
         width: ${size}px;
         height: ${size}px;
-        background: rgba(59, 130, 246, 0.6);
+        background: ${colorChoice.bg};
         border-radius: 50%;
         left: ${startPositionX}%;
         top: ${startPositionY}%;
-        animation: float ${duration}s linear infinite;
+        animation: ${animationName} ${duration}s ease-in-out infinite;
         animation-delay: ${delay}s;
-        box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 ${size * 1.5}px ${colorChoice.shadow};
+        opacity: 0.4;
+    `;
+    
+    container.appendChild(particle);
+}
+
+/**
+ * Create larger background particles for depth
+ */
+function createLargeParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'large-particle';
+    
+    const colors = [
+        { bg: 'rgba(139, 92, 246, 0.3)', shadow: 'rgba(139, 92, 246, 0.1)' },
+        { bg: 'rgba(99, 102, 241, 0.3)', shadow: 'rgba(99, 102, 241, 0.1)' },
+        { bg: 'rgba(168, 85, 247, 0.2)', shadow: 'rgba(168, 85, 247, 0.1)' }
+    ];
+    
+    const colorChoice = colors[Math.floor(Math.random() * colors.length)];
+    const size = Math.random() * 4 + 3;
+    const startPositionX = Math.random() * 100;
+    const startPositionY = Math.random() * 100;
+    
+    // Create unique random movement for large particles (slower and more subtle)
+    const moveX = (Math.random() - 0.5) * 60;
+    const moveY = (Math.random() - 0.5) * 40;
+    const duration = Math.random() * 60 + 40; // Very slow (40-100 seconds)
+    const delay = Math.random() * 15;
+    
+    const animationName = `largeFloat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    const keyframes = `
+        @keyframes ${animationName} {
+            0% {
+                transform: translate(0px, 0px);
+                opacity: 0.2;
+            }
+            25% {
+                transform: translate(${moveX * 0.2}px, ${moveY * 0.3}px);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(${moveX * 0.6}px, ${moveY * 0.7}px);
+                opacity: 0.4;
+            }
+            75% {
+                transform: translate(${moveX * 0.3}px, ${moveY * 0.4}px);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(0px, 0px);
+                opacity: 0.2;
+            }
+        }
+    `;
+    
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = keyframes;
+    document.head.appendChild(styleSheet);
+    
+    particle.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${colorChoice.bg};
+        border-radius: 50%;
+        left: ${startPositionX}%;
+        top: ${startPositionY}%;
+        animation: ${animationName} ${duration}s ease-in-out infinite;
+        animation-delay: ${delay}s;
+        box-shadow: 0 0 ${size * 2}px ${colorChoice.shadow};
+        opacity: 0.2;
+    `;
+    
+    container.appendChild(particle);
+}
+
+/**
+ * Create tiny micro particles for ambient effect
+ */
+function createMicroParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'micro-particle';
+    
+    const colors = [
+        { bg: 'rgba(139, 92, 246, 0.4)', shadow: 'rgba(139, 92, 246, 0.2)' },
+        { bg: 'rgba(196, 181, 253, 0.4)', shadow: 'rgba(196, 181, 253, 0.2)' },
+        { bg: 'rgba(255, 255, 255, 0.6)', shadow: 'rgba(255, 255, 255, 0.3)' },
+        { bg: 'rgba(168, 85, 247, 0.3)', shadow: 'rgba(168, 85, 247, 0.1)' }
+    ];
+    
+    const colorChoice = colors[Math.floor(Math.random() * colors.length)];
+    const size = Math.random() * 1.5 + 0.5;
+    const startPositionX = Math.random() * 100;
+    const startPositionY = Math.random() * 100;
+    
+    // Very subtle movement for micro particles
+    const moveX = (Math.random() - 0.5) * 40;
+    const moveY = (Math.random() - 0.5) * 30;
+    const duration = Math.random() * 50 + 25; // Slow movement (25-75 seconds)
+    const delay = Math.random() * 20;
+    
+    const animationName = `microFloat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    const keyframes = `
+        @keyframes ${animationName} {
+            0% {
+                transform: translate(0px, 0px);
+                opacity: 0.3;
+            }
+            33% {
+                transform: translate(${moveX * 0.4}px, ${moveY * 0.3}px);
+                opacity: 0.5;
+            }
+            66% {
+                transform: translate(${moveX * 0.8}px, ${moveY * 0.7}px);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(0px, 0px);
+                opacity: 0.3;
+            }
+        }
+    `;
+    
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = keyframes;
+    document.head.appendChild(styleSheet);
+    
+    particle.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${colorChoice.bg};
+        border-radius: 50%;
+        left: ${startPositionX}%;
+        top: ${startPositionY}%;
+        animation: ${animationName} ${duration}s ease-in-out infinite;
+        animation-delay: ${delay}s;
+        box-shadow: 0 0 ${size * 2}px ${colorChoice.shadow};
+        opacity: 0.3;
     `;
     
     container.appendChild(particle);
