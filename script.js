@@ -324,7 +324,7 @@ function sendEmail(e) {
         message: form.message.value,
     };
 
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+    emailjs.send('service_3thsec', 'template_contact', templateParams)
         .then(function(response) {
             showFormMessage(form, 'Your message has been sent successfully! We\'ll get back to you soon.', 'success');
             form.reset();
@@ -475,27 +475,59 @@ function initTypewriterEffect() {
     const heroSubtitle = document.querySelector('.hero-subtitle');
     if (!heroSubtitle) return;
     
-    const originalText = heroSubtitle.textContent;
-    heroSubtitle.textContent = '';
-    heroSubtitle.style.borderRight = '2px solid var(--accent-primary)';
-    heroSubtitle.style.paddingRight = '5px';
+    const originalText = heroSubtitle.textContent.trim();
+    if (!originalText) return;
+    
+    // Create a wrapper with cursor for better control
+    const wrapper = document.createElement('span');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+    
+    const textSpan = document.createElement('span');
+    const cursor = document.createElement('span');
+    cursor.textContent = '|';
+    cursor.style.color = 'var(--accent-primary)';
+    cursor.style.animation = 'blink 1s infinite';
+    cursor.style.fontSize = '1em';
+    cursor.style.fontWeight = 'normal';
+    
+    wrapper.appendChild(textSpan);
+    wrapper.appendChild(cursor);
+    
+    // Replace original content
+    heroSubtitle.innerHTML = '';
+    heroSubtitle.appendChild(wrapper);
+    
+    // Add CSS for blinking cursor
+    if (!document.getElementById('typewriter-css')) {
+        const style = document.createElement('style');
+        style.id = 'typewriter-css';
+        style.textContent = `
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
     
     let i = 0;
+    const typeSpeed = 80;
+    
     const typeWriter = () => {
         if (i < originalText.length) {
-            heroSubtitle.textContent += originalText.charAt(i);
+            textSpan.textContent += originalText.charAt(i);
             i++;
-            setTimeout(typeWriter, 50);
+            setTimeout(typeWriter, typeSpeed);
         } else {
             // Remove cursor after typing is complete
             setTimeout(() => {
-                heroSubtitle.style.borderRight = 'none';
-                heroSubtitle.style.paddingRight = '0';
-            }, 1000);
+                cursor.style.display = 'none';
+            }, 2000);
         }
     };
     
-    // Start typing after hero animation
+    // Start typing after hero loads
     setTimeout(typeWriter, 1000);
 }
 
@@ -592,13 +624,19 @@ function initInteractiveElements() {
         });
     });
     
-    // Add parallax effect to hero section
-    const hero = document.querySelector('.hero');
-    if (hero) {
+    // Add subtle scroll effect to hero badges (optional)
+    const heroBadges = document.querySelectorAll('.hero-badge');
+    if (heroBadges.length) {
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const parallax = scrolled * 0.5;
-            hero.style.transform = `translateY(${parallax}px)`;
+            const heroHeight = document.querySelector('.hero')?.offsetHeight || 0;
+            
+            if (scrolled < heroHeight) {
+                const opacity = 1 - (scrolled / heroHeight);
+                heroBadges.forEach(badge => {
+                    badge.style.opacity = Math.max(0.3, opacity);
+                });
+            }
         });
     }
 }
